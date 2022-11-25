@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+}
+
+.nuxt-link-exact-active {
+  @apply text-black dark:text-white;
+}
+
+.button {
+  @apply px-4 py-2 inline-flex gap-2 font-bold cursor-pointer items-center;
+}
+
+.line-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
