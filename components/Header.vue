@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 border-b py-4 -mx-4 px-4 bg-white z-10 font-bold">
-    <div class="max-w-4xl mx-auto flex gap-4 items-center justify-between text-xs">
+    <div class="mx-auto flex gap-4 items-center justify-between text-xs">
       <div class="flex-1 flex items-center gap-6">
         <div>
           <nuxt-link class="fill-green-800 flex items-center gap-2" to="/">
@@ -23,9 +23,9 @@
             <div class="flex items-center gap-2 text-sm">
               <div class="h-6 w-6 flex items-center justify-center bg-gray-200 rounded-full">
                 <img
-                  v-if="value.media"
+                  v-if="value.photo"
                   class="h-6 w-6 rounded-full"
-                  :src="`${$config.API_DOMAIN}${value.media.sizes.thumb_128}`"
+                  :src="value.photo"
                   alt="">
                 <icon v-else name="thumb"/>
               </div>

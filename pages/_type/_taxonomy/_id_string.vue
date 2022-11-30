@@ -1,7 +1,7 @@
 <template>
   <div>
-    <room-view v-if="viewName === 'room'"/>
-    <result-view/>
+    <room-view v-if="viewName === 'detail'"/>
+    <result-view v-else/>
   </div>
 </template>
 
@@ -15,55 +15,79 @@ export default {
   computed: {
     viewName() {
       const {id_string, type, taxonomy} = this.$route.params
-      if (!id_string && taxonomy && ["group", "channel"].includes(type)) {
-        return 'room'
+      if (!id_string && taxonomy && ["group", "channel", "sticker"].includes(type)) {
+        return 'detail'
       }
-      return 'result'
+      return 'list'
     },
   },
   async fetch() {
     this.$store.commit('config/SET_RESPONSE', null)
     this.$store.commit('config/SET_RESPONSE2', null)
+    this.$store.commit('config/SET_RESPONSE3', null)
     this.$store.commit('config/SET_ROOM', null)
-    if (this.viewName === 'room') {
-      const q = {
-        params: {
-          "room__id_string": this.$route.params.taxonomy,
-          "page_size": -1
+    if (this.viewName === 'detail') {
+      if (["group", "channel"].includes(this.$route.params.type)) {
+        const q = {
+          params: {
+            "room__id_string": this.$route.params.taxonomy,
+            "page_size": -1
+          }
         }
+        const res = await Promise.all([
+          this.$axios.$get(`/main/rooms/${this.$route.params.taxonomy}/`),
+          this.$axios.$get(`/main/snapshots/`, q),
+          this.$axios.$get(`/main/posts/`, q)
+        ])
+        this.$store.commit('config/SET_ROOM', res[0])
+        this.$store.commit('config/SET_RESPONSE_SNAPSHOT', res[1].reverse())
+        this.$store.commit('config/SET_RESPONSE_POST', res[2])
+      } else {
+        this.$store.commit(
+          'config/SET_ROOM',
+          await this.$axios.$get(`/main/stickers/${this.$route.params.taxonomy}/`)
+        )
       }
-      const res = await Promise.all([
-        this.$axios.$get(`/main/rooms/${this.$route.params.taxonomy}/`),
-        this.$axios.$get(`/main/snapshots/`, q),
-        this.$axios.$get(`/main/posts/`, q)
-      ])
-      this.$store.commit('config/SET_ROOM', res[0])
-      this.$store.commit('config/SET_RESPONSE_SNAPSHOT', res[1].reverse())
-      this.$store.commit('config/SET_RESPONSE_POST', res[2])
     } else {
+      const inters = []
+      inters.push(Promise.resolve(null));
+      inters.push(Promise.resolve(null));
+      inters.push(Promise.resolve(null));
       const q = {
         page: this.$route.query.page,
         properties__taxonomy: this.$route.params.taxonomy,
         properties__id_string: this.$route.params.id_string,
-        page_size: !this.$route.params.type ? 6 : 10,
+        page_size: !this.$route.params.type ? 6 : 12,
         search: this.$store.state.config.search
       }
       if (!this.$route.params.type || this.$route.params.type === 'channel') {
-        this.$store.commit('config/SET_RESPONSE', await this.$axios.$get('/main/rooms/', {
+        inters[0] = this.$axios.$get('/main/rooms/', {
           params: {
             ...q,
             is_group: false
           }
-        }))
+        })
       }
       if (!this.$route.params.type || this.$route.params.type === 'group') {
-        this.$store.commit('config/SET_RESPONSE2', await this.$axios.$get('/main/rooms/', {
+        inters[1] = this.$axios.$get('/main/rooms/', {
           params: {
             ...q,
             is_group: true
           }
-        }))
+        })
       }
+      if (!this.$route.params.type || this.$route.params.type === 'sticker') {
+        inters[2] = this.$axios.$get('/main/stickers/', {
+          params: {
+            ...q,
+            page_size: !this.$route.params.type ? 2 : 10,
+          }
+        })
+      }
+      const rs = await Promise.all(inters)
+      this.$store.commit('config/SET_RESPONSE', rs[0])
+      this.$store.commit('config/SET_RESPONSE2', rs[1])
+      this.$store.commit('config/SET_RESPONSE3', rs[2])
     }
     const room = this.$store.state.config.room
     const r1 = this.$store.state.config.response
@@ -71,7 +95,7 @@ export default {
     let title = 'Telegram Tracker'
     let desc = 'Easiest way to track any telegram channel and group'
     if (room) {
-      title = room.name
+      title = `${room.name} ${this.$route.params.type}`
       desc = room.desc
     } else if (r1.instance) {
       title = r1.name
@@ -93,7 +117,7 @@ export default {
     "$route.query"() {
       this.$fetch()
     },
-    "$store.state.config.search" () {
+    "$store.state.config.search"() {
       this.$fetch()
     }
   }

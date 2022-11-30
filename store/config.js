@@ -20,6 +20,7 @@ export default {
     modal: null,
     response: defaultRes,
     response2: defaultRes,
+    response3: defaultRes,
     resSnap: [],
     resPost: [],
     room: null
@@ -36,6 +37,9 @@ export default {
     },
     ["SET_RESPONSE2"](state, payload) {
       state.response2 = payload ? payload : defaultRes;
+    },
+    ["SET_RESPONSE3"](state, payload) {
+      state.response3 = payload ? payload : defaultRes;
     },
     ["SET_RESPONSE_SNAPSHOT"](state, payload) {
       state.resSnap = payload;

@@ -11,7 +11,8 @@
         </div>
         <div class="relative bg-white rounded-bl rounded-br rounded-tr">
           <div class="text-black p-4">
-            <connect-wallet/>
+            <social-share v-if="modal.type === 'social-share'"/>
+            <connect-wallet v-else/>
           </div>
         </div>
       </div>
@@ -21,10 +22,11 @@
 
 <script>
 import ConnectWallet from "@/components/Modal/ConnectWallet";
+import SocialShare from "./SocialShare";
 
 export default {
   name: "Adapter",
-  components: {ConnectWallet},
+  components: {SocialShare, ConnectWallet},
   computed: {
     modal() {
       return this.$store.state.config.modal

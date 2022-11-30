@@ -39,13 +39,13 @@
           <nuxt-link
             v-for="item in response2.results" :key="item.id"
             :to="`/group/${item.id_string}`"
-            class="flex gap-3 p-3 border"
+            class="flex gap-2 p-2 border"
           >
             <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
               <img
-                v-if="item.media"
-                :src="`${$config.API_DOMAIN}${item.media.sizes.thumb_128}`"
-                alt="">
+                v-if="item.photo"
+                :src="item.photo"
+                :alt="item.name">
               <icon v-else name="thumb"/>
             </div>
             <div class="flex-1">
@@ -64,6 +64,42 @@
               </div>
             </div>
           </nuxt-link>
+        </div>
+      </div>
+      <div v-if="response3.results.length" class="space-y-2">
+        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+          <nuxt-link to="/sticker">New sticker</nuxt-link>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3 text-sm">
+          <div
+            v-for="item in response3.results" :key="item.id"
+            class="border"
+          >
+            <div class="p-2 flex justify-between border-b">
+              <div class="flex gap-2 items-center font-semibold">
+                <nuxt-link :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
+                <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
+              </div>
+              <div class="flex gap-2 items-center">
+                <a
+                  :href="`https://t.me/addstickers/${item.id_string}`"
+                  target="_blank" rel="nofollow"
+                  class="flex gap-1 text-xs uppercase font-semibold items-center"
+                >
+                  <icon name="plus"/>
+                  <span>Add</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-2 grid grid-cols-6 gap-2">
+              <sticker-item
+                v-for="s in item.sticker_items.slice(0, 12)"
+                :key="s.tg_id"
+                :is_animated="item.is_animated"
+                :value="s"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div v-if="response.results.length" class="space-y-2">
@@ -88,10 +124,10 @@
               >
                 <div class="flex-none h-8 w-8 flex items-center justify-center bg-gray-200">
                   <img
-                    v-if="item.media"
+                    v-if="item.photo"
                     class="h-8 w-8"
-                    :src="`${$config.API_DOMAIN}${item.media.sizes.thumb_128}`"
-                    alt="">
+                    :src="item.photo"
+                    :alt="item.name">
                   <icon v-else name="thumb"/>
                 </div>
                 <div class="flex-1">
@@ -148,10 +184,12 @@
 
 <script>
 import {stringify} from "qs"
+import StickerItem from "../StickerItem";
 
 const nations = require("@/assets/nations.json")
 export default {
   name: "ResultView",
+  components: {StickerItem},
   computed: {
     currentPage() {
       return Number.parseInt(this.$route.query.page || "1")
@@ -162,14 +200,19 @@ export default {
     response2() {
       return this.$store.state.config.response2
     },
+    response3() {
+      return this.$store.state.config.response3
+    },
     type() {
       return this.$route.params.type || 'channel'
     },
     paginator() {
       if (this.type === 'channel') {
         return this.response
+      } else if (this.type === 'group') {
+        return this.response2
       }
-      return this.response2
+      return this.response3
     },
     pages() {
       const out = []
