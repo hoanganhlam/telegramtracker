@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="md:flex gap-6">
+    <div class="flex flex-col md:flex-row gap-6">
       <div class="md:w-3/4 space-y-4">
         <template v-if="isChat">
           <div class="border p-3 flex-1 space-y-4">
@@ -130,12 +130,12 @@
         </div>
       </div>
       <div class="md:w-1/4 space-y-4">
-        <div class="flex flex-col gap-4">
+        <div class="flex md:flex-col gap-4">
           <a
             :href="exLink"
             target="_blank"
             rel="nofollow"
-            class="button bg-green-600 justify-between text-white fill-white"
+            class="button bg-green-600 justify-center md:justify-between text-white fill-white"
           >
             <span>{{ $route.params.type === 'sticker' ? 'Add Sticker' : 'Join' }}</span>
             <icon name="join" class="fill-white"/>
@@ -144,13 +144,13 @@
             v-if="$route.params.type === 'sticker'" download
             :href="`${$config.API_DOMAIN}/files/media/${value.tg_id}.zip`"
             target="_blank"
-            class="button bg-gray-100 justify-between"
+            class="button bg-gray-100 justify-center md:justify-between"
           >
-            <span>Download</span>
+            <span class="hidden md:block">Download</span>
             <icon name="download"/>
           </a>
-          <div class="button bg-gray-100 justify-between" @click="share">
-            <span>Share</span>
+          <div class="button bg-gray-100 justify-center md:justify-between" @click="share">
+            <span class="hidden md:block">Share</span>
             <icon name="share"/>
           </div>
         </div>

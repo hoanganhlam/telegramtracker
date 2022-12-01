@@ -44,7 +44,7 @@
                 <icon name="close"/>
               </div>
               <input
-                v-model="name" class="border md:border-r-0 outline-none p-2 px-4 w-full"
+                v-model="name" class="border rounded-none md:border-r-0 outline-none p-2 px-4 w-full"
                 type="text" placeholder="Channel or group"
               >
               <div class="button bg-green-600 text-white fill-white" @click="search()">
