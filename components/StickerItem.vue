@@ -14,10 +14,18 @@
           @mouseleave="onMouseOver(false)"
         />
       </client-only>
+      <video
+        ref="player"
+        v-else-if="is_video" class="w-full h-full object-contain"
+        @mouseenter="onMouseOver(true)"
+        @mouseleave="onMouseOver(false)"
+      >
+        <source :src="value.path">
+      </video>
       <img v-else :src="value.path" :alt="value.tg_id" class="w-full h-full object-contain">
     </div>
     <div
-      v-if="!is_animated"
+      v-if="!is_animated && !is_video"
       class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 duration-300 cursor-pointer"
       @click="pin"
     >
@@ -32,6 +40,10 @@ export default {
   props: {
     title: {},
     is_animated: {
+      default: false,
+      type: Boolean
+    },
+    is_video: {
       default: false,
       type: Boolean
     },
