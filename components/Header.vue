@@ -18,20 +18,26 @@
           >
             <icon name="search"/>
           </div>
-          <div v-if="value" class="flex-1 hidden md:flex items-center gap-3">
-            <icon name="chevron-right"/>
-            <div class="flex items-center gap-2 text-sm">
-              <div class="h-6 w-6 flex items-center justify-center bg-gray-200 rounded-full">
-                <img
-                  v-if="value.photo"
-                  class="h-6 w-6 rounded-full"
-                  :src="value.photo"
-                  alt="">
-                <icon v-else name="thumb"/>
-              </div>
-              <div class="font-medium text-gray-900 truncate w-64">{{ value.name }}</div>
+          <template v-if="value">
+            <div class="hidden md:flex items-center gap-3">
+              <icon name="chevron-right"/>
+              <nuxt-link class="text-sm capitalize" :to="`/${$route.params.type}`">{{$route.params.type}}</nuxt-link>
             </div>
-          </div>
+            <div class="flex-1 hidden md:flex items-center gap-3">
+              <icon name="chevron-right"/>
+              <div class="flex items-center gap-2 text-sm">
+                <div class="h-6 w-6 flex items-center justify-center bg-gray-200 rounded-full">
+                  <img
+                    v-if="value.photo"
+                    class="h-6 w-6 rounded-full"
+                    :src="value.photo"
+                    alt="">
+                  <icon v-else name="thumb"/>
+                </div>
+                <div class="font-medium text-gray-900 truncate w-64">{{ value.name }}</div>
+              </div>
+            </div>
+          </template>
           <div
             class="z-10 top-0 left-0 right-0 absolute md:relative bg-white md:bg-transparent p-4 md:p-0 border-b md:border-b-0"
             :class="{

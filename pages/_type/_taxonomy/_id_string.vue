@@ -107,6 +107,8 @@ export default {
       title = "Top Telegram Groups"
     } else if (this.$route.params.type === 'channel') {
       title = "Top Telegram Channels"
+    } else if (this.$route.params.type === 'sticker') {
+      title = "Top Telegram Stickers"
     }
     this.$store.commit('config/SET_META', {
       title,
