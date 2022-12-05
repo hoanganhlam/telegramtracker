@@ -84,3 +84,5 @@ sw.*
 # Vim swap files
 *.swp
 /.nuxt/
+/pages/labeling/
+/pages/labeling/*

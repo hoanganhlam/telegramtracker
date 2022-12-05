@@ -80,7 +80,7 @@ export default {
         inters[2] = this.$axios.$get('/main/stickers/', {
           params: {
             ...q,
-            page_size: !this.$route.params.type ? 2 : 10,
+            page_size: !this.$route.params.type ? 4 : 10,
           }
         })
       }
@@ -104,11 +104,11 @@ export default {
       title = r2.name
       desc = r2.desc
     } else if (this.$route.params.type === 'group') {
-      title = "Top Telegram Groups"
+      title = "Best Telegram Groups"
     } else if (this.$route.params.type === 'channel') {
-      title = "Top Telegram Channels"
+      title = "Best Telegram Channels"
     } else if (this.$route.params.type === 'sticker') {
-      title = "Top Telegram Stickers"
+      title = "Best Telegram Stickers"
     }
     this.$store.commit('config/SET_META', {
       title,

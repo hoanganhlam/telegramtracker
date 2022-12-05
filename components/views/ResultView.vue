@@ -31,44 +31,9 @@
         <h1 class="text-3xl font-semibold">{{ $store.state.config.meta.title }}</h1>
         <p class="text-gray-500">{{ $store.state.config.meta.desc }}</p>
       </div>
-      <div v-if="response2.results.length" class="space-y-2">
-        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/group">Top group by online</nuxt-link>
-        </div>
-        <div class="grid md:grid-cols-3 gap-3 text-sm">
-          <nuxt-link
-            v-for="item in response2.results" :key="item.id"
-            :to="`/group/${item.id_string}`"
-            class="flex gap-2 p-2 border"
-          >
-            <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
-              <img
-                v-if="item.photo"
-                :src="item.photo"
-                :alt="item.name">
-              <icon v-else name="thumb"/>
-            </div>
-            <div class="flex-1">
-              <div class="font-semibold text-gray-900 line-1">{{ item.name }}</div>
-              <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
-              <div class="flex gap-3 text-xs mt-1">
-                <div class="flex gap-1">
-                  <span>{{ item.members?.toLocaleString() }}</span>
-                  <span>members</span>
-                </div>
-                <div class="flex gap-1 items-center">
-                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                  <span>{{ item.online?.toLocaleString() }}</span>
-                  <span>online</span>
-                </div>
-              </div>
-            </div>
-          </nuxt-link>
-        </div>
-      </div>
       <div v-if="response3.results.length" class="space-y-2">
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/sticker">New sticker</nuxt-link>
+          <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
         </div>
         <div class="grid md:grid-cols-2 gap-3 text-sm">
           <div
@@ -103,9 +68,44 @@
           </div>
         </div>
       </div>
+      <div v-if="response2.results.length" class="space-y-2">
+        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+          <nuxt-link to="/group">Best Telegram Groups</nuxt-link>
+        </div>
+        <div class="grid md:grid-cols-3 gap-3 text-sm">
+          <nuxt-link
+            v-for="item in response2.results" :key="item.id"
+            :to="`/group/${item.id_string}`"
+            class="flex gap-2 p-2 border"
+          >
+            <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
+              <img
+                v-if="item.photo"
+                :src="item.photo"
+                :alt="item.name">
+              <icon v-else name="thumb"/>
+            </div>
+            <div class="flex-1">
+              <div class="font-semibold text-gray-900 line-1">{{ item.name }}</div>
+              <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
+              <div class="flex gap-3 text-xs mt-1">
+                <div class="flex gap-1">
+                  <span>{{ item.members?.toLocaleString() }}</span>
+                  <span>members</span>
+                </div>
+                <div class="flex gap-1 items-center">
+                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span>{{ item.online?.toLocaleString() }}</span>
+                  <span>online</span>
+                </div>
+              </div>
+            </div>
+          </nuxt-link>
+        </div>
+      </div>
       <div v-if="response.results.length" class="space-y-2">
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/channel">Top channel by subscribers</nuxt-link>
+          <nuxt-link to="/channel">Best Telegram Channels</nuxt-link>
         </div>
         <table class="w-full table-fixed divide-y border text-right">
           <thead class="bg-gray-50 text-xs uppercase font-semibold text-gray-900">

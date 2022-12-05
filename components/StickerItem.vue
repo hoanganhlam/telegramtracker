@@ -8,7 +8,7 @@
         <lottie-player
           ref="player"
           loop
-          :src="value.path"
+          :src="path"
           speed="1"
           @mouseenter="onMouseOver(true)"
           @mouseleave="onMouseOver(false)"
@@ -20,9 +20,9 @@
         @mouseenter="onMouseOver(true)"
         @mouseleave="onMouseOver(false)"
       >
-        <source :src="value.path">
+        <source :src="path">
       </video>
-      <img v-else :src="value.path" :alt="value.tg_id" class="w-full h-full object-contain">
+      <img v-else :src="path" :alt="value.tg_id" class="w-full h-full object-contain">
     </div>
     <div
       v-if="!is_animated && !is_video"
@@ -48,6 +48,11 @@ export default {
       type: Boolean
     },
     value: {}
+  },
+  computed: {
+    path() {
+      return `${this.$config.API_DOMAIN}${this.value.path}`
+    }
   },
   methods: {
     pin() {
