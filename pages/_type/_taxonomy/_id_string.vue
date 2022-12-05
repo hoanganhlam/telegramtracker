@@ -92,17 +92,21 @@ export default {
     const room = this.$store.state.config.room
     const r1 = this.$store.state.config.response
     const r2 = this.$store.state.config.response2
+    const r3 = this.$store.state.config.response3
     let title = 'Telegram Tracker'
     let desc = 'Easiest way to track any telegram channel and group'
     if (room) {
       title = `${room.name} ${this.$route.params.type}`
       desc = room.desc
     } else if (r1.instance) {
-      title = r1.name
-      desc = r1.desc
+      title = `${r1.instance.name} Telegram ${this.$route.params.type}s`
+      desc = r1.instance.desc
     } else if (r2.instance) {
-      title = r2.name
-      desc = r2.desc
+      title = `${r2.instance.name} Telegram ${this.$route.params.type}s`
+      desc = r2.instance.desc
+    } else if (r3.instance) {
+      title = `${r3.instance.name} Telegram ${this.$route.params.type}s`
+      desc = r3.instance.desc
     } else if (this.$route.params.type === 'group') {
       title = "Best Telegram Groups"
     } else if (this.$route.params.type === 'channel') {
