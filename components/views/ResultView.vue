@@ -42,7 +42,7 @@
           >
             <div class="p-2 flex justify-between border-b">
               <div class="flex gap-2 items-center font-semibold">
-                <nuxt-link :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
+                <nuxt-link class="text-base font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
                 <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
               </div>
               <div class="flex gap-2 items-center">
@@ -86,7 +86,7 @@
               <icon v-else name="thumb"/>
             </div>
             <div class="flex-1">
-              <div class="font-semibold text-gray-900 line-1">{{ item.name }}</div>
+              <div class="font-semibold text-gray-900 line-1 text-base">{{ item.name }}</div>
               <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
               <div class="flex gap-3 text-xs mt-1">
                 <div class="flex gap-1">
@@ -132,7 +132,7 @@
                   <icon v-else name="thumb"/>
                 </div>
                 <div class="flex-1">
-                  <div class="font-medium text-gray-900 truncate w-64">{{ item.name }}</div>
+                  <div class="leading-none font-semibold text-gray-900 truncate w-64 text-base">{{ item.name }}</div>
                   <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
                 </div>
               </nuxt-link>
