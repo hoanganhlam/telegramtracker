@@ -85,15 +85,6 @@
             </tr>
             </tbody>
           </table>
-          <div class="flex items-center gap-4 text-gray-500">
-            <div v-for="(item, i) in value.properties" :key="i" class="flex rounded overflow-hidden">
-              <nuxt-link
-                class="p-2 py-1 bg-gray-100"
-                :to="`/${$route.params.type}/${item.taxonomy}/${item.id_string}`"
-              >#{{ item.name }}
-              </nuxt-link>
-            </div>
-          </div>
           <div v-if="value.participants.length" class="space-y-2">
             <div class="uppercase font-semibold text-xs text-gray-500">Administrators</div>
             <div class="grid md:grid-cols-2 gap-3 text-sm leading-none">
@@ -127,6 +118,15 @@
             :is_video="value.is_video"
             :value="s"
           />
+        </div>
+        <div class="flex items-center gap-4 text-gray-500">
+          <div v-for="(item, i) in value.properties" :key="i" class="flex rounded overflow-hidden">
+            <nuxt-link
+              class="p-2 py-1 bg-gray-100"
+              :to="`/${$route.params.type}/${item.taxonomy}/${item.id_string}`"
+            >#{{ item.name }}
+            </nuxt-link>
+          </div>
         </div>
       </div>
       <div class="md:w-1/4 space-y-4">
