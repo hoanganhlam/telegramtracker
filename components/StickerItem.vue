@@ -22,7 +22,7 @@
       >
         <source :src="path">
       </video>
-      <img v-else :src="path" :alt="value.tg_id" class="w-full h-full object-contain">
+      <img v-else :src="path" :alt="title + ' #' + value.tg_id" class="w-full h-full object-contain">
     </div>
     <div
       v-if="!is_animated && !is_video"
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     pin() {
-      const url = `https://www.pinterest.com/pin/create/button/?url=${window.location.href}&description=${this.title}&media=${this.value.path}`
+      const url = `https://www.pinterest.com/pin/create/button/?url=${window.location.href}&description=${this.title}&media=${this.$config.API_DOMAIN}${this.value.path}`
       const newWindow=window.open(url, "Pin It",'height=728,width=728,toolbar=0,menubar=0,location=0');
       if (window.focus) {newWindow.focus()}
       return false;

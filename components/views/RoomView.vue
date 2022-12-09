@@ -114,6 +114,7 @@
           <sticker-item
             v-for="s in value.sticker_items"
             :key="s.tg_id"
+            :title="value.title"
             :is_animated="value.is_animated"
             :is_video="value.is_video"
             :value="s"

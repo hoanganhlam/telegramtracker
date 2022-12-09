@@ -60,6 +60,7 @@
               <sticker-item
                 v-for="s in item.sticker_items.slice(0, 12)"
                 :key="s.tg_id"
+                :title="item.title"
                 :is_animated="item.is_animated"
                 :is_video="item.is_video"
                 :value="s"
