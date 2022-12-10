@@ -32,8 +32,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxt/postcss8',
-    '@nuxt/typescript-build',
-    '@nuxtjs/google-analytics'
+    '@nuxt/typescript-build'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -43,11 +42,12 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'vue-social-sharing/nuxt',
-    ['cookie-universal-nuxt', {alias: 'ck'}]
+    ['cookie-universal-nuxt', {alias: 'ck'}],
+    '@nuxtjs/gtm',
   ],
 
-  googleAnalytics: {
-    id: 'G-HX0CPNKLCG'
+  gtm: {
+    id: 'GTM-K39XZM4'
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
