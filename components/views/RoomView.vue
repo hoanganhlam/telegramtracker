@@ -120,7 +120,7 @@
             :value="s"
           />
         </div>
-        <div class="flex items-center gap-4 text-gray-500">
+        <div class="flex items-center gap-4 text-sm font-semibold">
           <div v-for="(item, i) in value.properties" :key="i" class="flex rounded overflow-hidden">
             <nuxt-link
               class="p-2 py-1 bg-gray-100"

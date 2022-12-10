@@ -28,7 +28,7 @@
         </div>
       </div>
       <div v-if="$route.params.type && (!$route.params.taxonomy || $route.params.id_string && $route.params.taxonomy)">
-        <h1 class="text-3xl font-semibold">{{ $store.state.config.meta.title }}</h1>
+        <h1 class="text-4xl font-bold">{{ $store.state.config.meta.title }}</h1>
         <p class="text-gray-500">{{ $store.state.config.meta.desc }}</p>
       </div>
       <div v-if="response3.results.length" class="space-y-2">
@@ -40,7 +40,17 @@
             v-for="item in response3.results" :key="item.id"
             class="border"
           >
-            <div class="p-2 flex justify-between border-b">
+            <div class="p-2 grid grid-cols-6 gap-2">
+              <sticker-item
+                v-for="s in item.sticker_items.slice(0, 12)"
+                :key="s.tg_id"
+                :title="item.title"
+                :is_animated="item.is_animated"
+                :is_video="item.is_video"
+                :value="s"
+              />
+            </div>
+            <div class="p-2 py-1 flex justify-between border-t">
               <div class="flex gap-2 items-center font-semibold">
                 <nuxt-link class="text-base font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
                 <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
@@ -55,16 +65,6 @@
                   <span>Add</span>
                 </a>
               </div>
-            </div>
-            <div class="p-2 grid grid-cols-6 gap-2">
-              <sticker-item
-                v-for="s in item.sticker_items.slice(0, 12)"
-                :key="s.tg_id"
-                :title="item.title"
-                :is_animated="item.is_animated"
-                :is_video="item.is_video"
-                :value="s"
-              />
             </div>
           </div>
         </div>
@@ -119,15 +119,15 @@
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white text-sm">
           <tr v-for="(item, i) in response.results" :key="i">
-            <td class="py-2 px-3 text-left">
+            <td class="p-2 text-left">
               <nuxt-link
                 class="flex items-center gap-2"
                 :to="`/${item.is_group ? 'group' : 'channel'}/${item.id_string}`"
               >
-                <div class="flex-none h-8 w-8 flex items-center justify-center bg-gray-200">
+                <div class="flex-none h-16 w-16 flex items-center justify-center bg-gray-200">
                   <img
                     v-if="item.photo"
-                    class="h-8 w-8"
+                    class="w-full h-full"
                     :src="item.photo"
                     :alt="item.name">
                   <icon v-else name="thumb"/>
@@ -138,16 +138,16 @@
                 </div>
               </nuxt-link>
             </td>
-            <td class="py-2 px-3 hidden md:table-cell">
+            <td class="p-2 hidden md:table-cell">
               {{ parsePercent(item.views / item.members) }}
             </td>
-            <td class="py-2 px-3">
+            <td class="p-2">
               <div class="font-semibold">{{ item?.members.toLocaleString() }}</div>
               <div class="text-xs text-green-500">
                 <span>{{ item?.statistics?.members_1h?.toLocaleString() }}</span>
               </div>
             </td>
-            <td class="py-2 px-3 hidden md:table-cell">
+            <td class="p-2 hidden md:table-cell">
               {{ timeSince(item.created) }}
             </td>
           </tr>
