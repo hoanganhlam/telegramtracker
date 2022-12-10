@@ -28,10 +28,15 @@ export default {
     this.$store.commit('config/SET_ROOM', null)
     if (this.viewName === 'detail') {
       if (["group", "channel"].includes(this.$route.params.type)) {
+        const now = new Date()
+        const next = new Date()
+        next.setDate(next.getDate() - 7)
         const q = {
           params: {
             "room__id_string": this.$route.params.taxonomy,
-            "page_size": -1
+            "page_size": -1,
+            "date_after": next.toISOString(),
+            "date_before": now.toISOString()
           }
         }
         const res = await Promise.all([
