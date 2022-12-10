@@ -32,7 +32,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxt/postcss8',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxtjs/google-analytics'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,6 +45,10 @@ export default {
     'vue-social-sharing/nuxt',
     ['cookie-universal-nuxt', {alias: 'ck'}]
   ],
+
+  googleAnalytics: {
+    id: 'G-HX0CPNKLCG'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

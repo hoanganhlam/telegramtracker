@@ -124,7 +124,7 @@
                 class="flex items-center gap-2"
                 :to="`/${item.is_group ? 'group' : 'channel'}/${item.id_string}`"
               >
-                <div class="flex-none h-16 w-16 flex items-center justify-center bg-gray-200">
+                <div class="flex-none h-10 w-10 flex items-center justify-center bg-gray-200">
                   <img
                     v-if="item.photo"
                     class="w-full h-full"
@@ -133,7 +133,7 @@
                   <icon v-else name="thumb"/>
                 </div>
                 <div class="flex-1">
-                  <div class="leading-none font-semibold text-gray-900 truncate w-64 text-base">{{ item.name }}</div>
+                  <div class="font-semibold text-gray-900 truncate w-64 text-base">{{ item.name }}</div>
                   <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
                 </div>
               </nuxt-link>
