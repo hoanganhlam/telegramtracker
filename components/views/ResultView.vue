@@ -38,7 +38,7 @@
         <div class="grid md:grid-cols-2 gap-3 text-sm">
           <div
             v-for="item in response3.results" :key="item.id"
-            class="border"
+            class="border bg-white"
           >
             <div class="p-2 grid grid-cols-6 gap-2">
               <sticker-item
@@ -77,7 +77,7 @@
           <nuxt-link
             v-for="item in response2.results" :key="item.id"
             :to="`/group/${item.id_string}`"
-            class="flex gap-2 p-2 border"
+            class="flex gap-2 p-2 border bg-white"
           >
             <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
               <img
@@ -108,13 +108,13 @@
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
           <nuxt-link to="/channel">Best Telegram Channels</nuxt-link>
         </div>
-        <table class="w-full table-fixed divide-y border text-right">
+        <table class="w-full table-fixed divide-y border bg-white text-right">
           <thead class="bg-gray-50 text-xs uppercase font-semibold text-gray-900">
           <tr>
-            <th scope="col" class="p-3 text-left">Name</th>
-            <th scope="col" class="p-3 hidden md:table-cell">View Rate</th>
-            <th scope="col" class="p-3">Subscribers</th>
-            <th scope="col" class="p-3 hidden md:table-cell">Age</th>
+            <th scope="col" class="p-3 py-1.5 text-left">Name</th>
+            <th scope="col" class="p-3 py-1.5 hidden md:table-cell">View Rate</th>
+            <th scope="col" class="p-3 py-1.5">Subscribers</th>
+            <th scope="col" class="p-3 py-1.5 hidden md:table-cell">Age</th>
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white text-sm">

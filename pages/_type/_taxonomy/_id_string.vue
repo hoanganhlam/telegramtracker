@@ -57,7 +57,7 @@ export default {
         page: this.$route.query.page,
         properties__taxonomy: this.$route.params.taxonomy,
         properties__id_string: this.$route.params.id_string,
-        page_size: !this.$route.params.type ? 6 : 12,
+        page_size: !this.$route.params.type ? 6 : 20,
         search: this.$store.state.config.search
       }
       if (!this.$route.params.type || this.$route.params.type === 'channel') {

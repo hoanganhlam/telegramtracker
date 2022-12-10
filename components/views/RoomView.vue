@@ -30,7 +30,7 @@
     <div class="flex flex-col md:flex-row gap-6">
       <div class="md:w-3/4 space-y-4">
         <template v-if="isChat">
-          <div class="border p-3 flex-1 space-y-4">
+          <div class="border bg-white p-3 flex-1 space-y-4">
             <div v-if="value.statistics"
                  class="flex flex-wrap gap-4 md:gap-10 text-gray-500 leading-none text-sm font-semibold">
               <div class="space-y-1" v-for="item in metrics" :key="item.id">
@@ -67,7 +67,7 @@
               <chart :data="charts"/>
             </client-only>
           </div>
-          <table v-if="resPost.length" class="w-full table-fixed divide-y border text-right">
+          <table v-if="resPost.length" class="w-full table-fixed divide-y border bg-white text-right">
             <thead class="bg-gray-50 font-semibold text-gray-900">
             <tr>
               <th scope="col" class="p-3 py-1.5 text-left">Post</th>
@@ -85,15 +85,15 @@
             </tr>
             </tbody>
           </table>
-          <div v-if="value.participants.length" class="space-y-2">
+          <div v-if="value?.participants.length" class="space-y-2">
             <div class="uppercase font-semibold text-xs text-gray-500">Administrators</div>
-            <div class="grid md:grid-cols-2 gap-3 text-sm leading-none">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm leading-none">
               <a
                 v-for="item in value.participants" :key="item.id"
                 :href="`https://t.me/${item.account.tg_username}`"
                 target="_blank"
                 rel="nofollow"
-                class="flex gap-2"
+                class="flex gap-2 border bg-white p-2"
               >
                 <div class="h-8 w-8 flex items-center justify-center bg-gray-200">
                   <img
@@ -120,10 +120,10 @@
             :value="s"
           />
         </div>
-        <div class="flex items-center gap-4 text-sm font-semibold">
+        <div class="flex items-center gap-2 text-sm font-semibold">
           <div v-for="(item, i) in value.properties" :key="i" class="flex rounded overflow-hidden">
             <nuxt-link
-              class="p-2 py-1 bg-gray-100"
+              class="p-2 py-1 bg-white"
               :to="`/${$route.params.type}/${item.taxonomy}/${item.id_string}`"
             >#{{ item.name }}
             </nuxt-link>
@@ -150,7 +150,7 @@
             <span class="hidden md:block">Download</span>
             <icon name="download"/>
           </a>
-          <div class="button bg-gray-100 justify-center md:justify-between" @click="share">
+          <div class="button bg-white justify-center md:justify-between" @click="share">
             <span class="hidden md:block">Share</span>
             <icon name="share"/>
           </div>
