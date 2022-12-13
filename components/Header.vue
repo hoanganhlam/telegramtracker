@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 border-b py-2 bg-black text-white -mx-4 px-4 z-10 font-bold">
-    <div class="mx-auto flex gap-4 items-center justify-between text-xs">
+    <div class="mx-auto max-w-4xl flex gap-4 items-center justify-between text-xs">
       <div class="flex-1 flex items-center gap-6">
         <div>
           <nuxt-link class="fill-white text-white flex items-center gap-2" to="/">
@@ -32,7 +32,7 @@
                     class="h-6 w-6 rounded-full"
                     :src="value.photo"
                     alt="">
-                  <icon v-else name="thumb"/>
+                  <icon v-else class="sm fill-black" name="thumb"/>
                 </div>
                 <div class="font-medium truncate w-64">{{ value.name }}</div>
               </div>

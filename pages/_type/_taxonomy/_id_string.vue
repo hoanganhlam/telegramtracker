@@ -62,7 +62,7 @@ export default {
         page: this.$route.query.page,
         properties__taxonomy: this.$route.params.taxonomy,
         properties__id_string: this.$route.params.id_string,
-        page_size: !this.$route.params.type ? 6 : 20,
+        page_size: !this.$route.params.type ? 6 : 21,
         search: this.$store.state.config.search
       }
       if (!this.$route.params.type || this.$route.params.type === 'channel') {
@@ -85,7 +85,7 @@ export default {
         inters[2] = this.$axios.$get('/main/stickers/', {
           params: {
             ...q,
-            page_size: !this.$route.params.type ? 4 : 10,
+            page_size: !this.$route.params.type ? 6 : 12,
           }
         })
       }

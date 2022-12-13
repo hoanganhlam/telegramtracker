@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto py-8">
+  <div class="max-w-4xl mx-auto py-4">
     <div class="space-y-4">
       <div
         v-if="false && !$route.params.id_string"
@@ -35,12 +35,12 @@
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
           <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
         </div>
-        <div class="grid md:grid-cols-2 gap-3 text-sm">
+        <div class="grid md:grid-cols-3 gap-3 text-sm">
           <div
             v-for="item in response3.results" :key="item.id"
             class="border bg-white"
           >
-            <div class="p-2 grid grid-cols-6 gap-2">
+            <div class="p-2 grid grid-cols-3 gap-2">
               <sticker-item
                 v-for="s in item.sticker_items.slice(0, 12)"
                 :key="s.tg_id"
@@ -52,7 +52,7 @@
             </div>
             <div class="p-2 py-1 flex justify-between border-t">
               <div class="flex gap-2 items-center font-semibold">
-                <nuxt-link class="text-base font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
+                <nuxt-link class="font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
                 <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
               </div>
               <div class="flex gap-2 items-center">
@@ -87,7 +87,7 @@
               <icon v-else name="thumb"/>
             </div>
             <div class="flex-1">
-              <div class="font-semibold text-gray-900 line-1 text-base">{{ item.name }}</div>
+              <div class="font-semibold text-gray-900 line-1">{{ item.name }}</div>
               <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
               <div class="flex gap-3 text-xs mt-1">
                 <div class="flex gap-1">
@@ -133,7 +133,7 @@
                   <icon v-else name="thumb"/>
                 </div>
                 <div class="flex-1">
-                  <div class="font-semibold text-gray-900 truncate w-64 text-base">{{ item.name }}</div>
+                  <div class="font-semibold text-gray-900 truncate w-64">{{ item.name }}</div>
                   <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
                 </div>
               </nuxt-link>

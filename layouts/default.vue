@@ -10,8 +10,12 @@
           <div class="max-w-4xl mx-auto text-xs text-gray-500 flex gap-4">
             <div class="py-1">Copyright © 2021 telegramtracker.com</div>
             <div class="py-1 flex space-x-3 fill-gray-500">
-              <icon name="twitter"/>
-              <icon name="discord" vb="128"/>
+              <a href="https://twitter.com/telegramtracker" target="_blank">
+                <icon name="twitter"/>
+              </a>
+              <a  href="https://pinterest.com/telegramtracker" target="_blank">
+                <icon name="pinterest" class="fill-red-500"/>
+              </a>
             </div>
             <div v-if="false" class="flex-1 flex justify-end fill-gray-500">
               <div
