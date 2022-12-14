@@ -78,34 +78,31 @@ export default {
         }
       }
     },
-    init() {
+    async init() {
       if (!this.$refs.player) return;
       this.loading = true
-      this.$axios.$get(this.path).then(res => {
-        this.anime = lottie.loadAnimation({
-            container: this.$refs.player,
-            renderer: 'svg',
-            loop: true,
-            autoplay: false,
-            animationData: res,
-            rendererSettings: {}
-          }
-        )
-      }).finally(() => {
-        this.loading = false
-      })
+      const res = await this.$axios.$get(this.path)
+      this.anime = await lottie.loadAnimation({
+          container: this.$refs.player,
+          renderer: 'svg',
+          loop: true,
+          autoplay: false,
+          animationData: res,
+          rendererSettings: {}
+        })
+      this.loading = false
     }
   },
-  mounted() {
+  async mounted() {
     const elm = this.$el
     const handle = async () => {
       if (this.anime || this.loading) return;
       const isVisible = window.checkVisible(elm);
       if (isVisible) {
-        this.init()
+        await this.init()
       }
     }
-    handle()
+    await handle()
     window.addEventListener('scroll', handle)
   }
 }
