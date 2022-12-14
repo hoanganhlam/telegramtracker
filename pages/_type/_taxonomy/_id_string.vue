@@ -70,6 +70,9 @@ export default {
           params: {
             ...q,
             is_group: false
+          },
+          headers: {
+            'X-Cache': 'client'
           }
         })
       }
@@ -78,6 +81,9 @@ export default {
           params: {
             ...q,
             is_group: true
+          },
+          headers: {
+            'X-Cache': 'client'
           }
         })
       }
@@ -85,7 +91,10 @@ export default {
         inters[2] = this.$axios.$get('/main/stickers/', {
           params: {
             ...q,
-            page_size: !this.$route.params.type ? 6 : 12,
+            page_size: !this.$route.params.type ? 3 : 12,
+          },
+          headers: {
+            'X-Cache': 'client'
           }
         })
       }

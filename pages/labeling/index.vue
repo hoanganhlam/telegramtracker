@@ -80,7 +80,10 @@ export default {
   },
   async fetch() {
     this.response = await this.$axios.$get(`/main/${this.model}s/`, {
-      params: this.$route.query
+      params: this.$route.query,
+      headers: {
+        'x-cache': new Date().getTime()
+      }
     }).then(res => {
       return {
         ...res,

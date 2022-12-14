@@ -1,6 +1,6 @@
 <template>
   <div :class="{dark: dark}">
-    <div class="px-4 dark:bg-black dark:text-white min-h-screen dark:fill-gray-500 bg-stone-100">
+    <div class="px-4 dark:bg-black dark:text-white min-h-screen dark:fill-gray-500">
       <p-header :dark="dark"/>
       <div class="content-wrapper">
         <div class="main-wrapper">

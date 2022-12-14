@@ -28,46 +28,8 @@
         </div>
       </div>
       <div v-if="$route.params.type && (!$route.params.taxonomy || $route.params.id_string && $route.params.taxonomy)">
-        <h1 class="text-4xl font-bold">{{ $store.state.config.meta.title }}</h1>
+        <h1 class="text-3xl font-bold">{{ $store.state.config.meta.title }}</h1>
         <p class="text-gray-500">{{ $store.state.config.meta.desc }}</p>
-      </div>
-      <div v-if="response3.results.length" class="space-y-2">
-        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
-        </div>
-        <div class="grid md:grid-cols-3 gap-3 text-sm">
-          <div
-            v-for="item in response3.results" :key="item.id"
-            class="border bg-white"
-          >
-            <div class="p-2 grid grid-cols-3 gap-2">
-              <sticker-item
-                v-for="s in item.sticker_items.slice(0, 12)"
-                :key="s.tg_id"
-                :title="item.title"
-                :is_animated="item.is_animated"
-                :is_video="item.is_video"
-                :value="s"
-              />
-            </div>
-            <div class="p-2 py-1 flex justify-between border-t">
-              <div class="flex gap-2 items-center font-semibold">
-                <nuxt-link class="font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
-                <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
-              </div>
-              <div class="flex gap-2 items-center">
-                <a
-                  :href="`https://t.me/addstickers/${item.id_string}`"
-                  target="_blank" rel="nofollow"
-                  class="flex gap-1 text-xs uppercase font-semibold items-center"
-                >
-                  <icon name="plus"/>
-                  <span>Add</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <div v-if="response2.results.length" class="space-y-2">
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
@@ -103,56 +65,101 @@
             </div>
           </nuxt-link>
         </div>
+        <div v-if="response2.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+          <div v-for="(item, i) in response2.properties" :key="i" class="flex rounded overflow-hidden">
+            <nuxt-link
+              class="p-2 py-1 bg-stone-100"
+              :to="`/group/${item.taxonomy}/${item.id_string}`"
+            >{{ item.name }}
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
+      <div v-if="response3.results.length" class="space-y-2">
+        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+          <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
+        </div>
+        <div class="grid md:grid-cols-3 gap-3 text-sm">
+          <div
+            v-for="item in response3.results" :key="item.id"
+            class="border bg-white"
+          >
+            <div class="p-2 grid grid-cols-6 md:grid-cols-3 gap-2">
+              <sticker-item
+                v-for="s in item.sticker_items.slice(0, 12)"
+                :key="s.tg_id"
+                :title="item.title"
+                :is_animated="item.is_animated"
+                :is_video="item.is_video"
+                :value="s"
+              />
+            </div>
+            <div class="p-2 py-1 flex justify-between border-t">
+              <div class="flex gap-2 items-center font-semibold">
+                <nuxt-link class="font-semibold" :to="`/sticker/${item.id_string}`">{{ item.name }}</nuxt-link>
+                <span v-if="item.is_animated" class="text-xs p-0.5 px-2 bg-green-500 rounded-lg text-white">Animated</span>
+              </div>
+              <div class="flex gap-2 items-center">
+                <a
+                  :href="`https://t.me/addstickers/${item.id_string}`"
+                  target="_blank" rel="nofollow"
+                  class="flex gap-1 text-xs uppercase font-semibold items-center"
+                >
+                  <icon name="plus"/>
+                  <span>Add</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="response3.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+          <div v-for="(item, i) in response3.properties" :key="i" class="flex rounded overflow-hidden">
+            <nuxt-link
+              class="p-2 py-1 bg-stone-100"
+              :to="`/sticker/${item.taxonomy}/${item.id_string}`"
+            >{{ item.name }}
+            </nuxt-link>
+          </div>
+        </div>
       </div>
       <div v-if="response.results.length" class="space-y-2">
         <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
           <nuxt-link to="/channel">Best Telegram Channels</nuxt-link>
         </div>
-        <table class="w-full table-fixed divide-y border bg-white text-right">
-          <thead class="bg-gray-50 text-xs uppercase font-semibold text-gray-900">
-          <tr>
-            <th scope="col" class="p-3 py-1.5 text-left">Name</th>
-            <th scope="col" class="p-3 py-1.5 hidden md:table-cell">View Rate</th>
-            <th scope="col" class="p-3 py-1.5">Subscribers</th>
-            <th scope="col" class="p-3 py-1.5 hidden md:table-cell">Age</th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200 bg-white text-sm">
-          <tr v-for="(item, i) in response.results" :key="i">
-            <td class="p-2 text-left">
-              <nuxt-link
-                class="flex items-center gap-2"
-                :to="`/${item.is_group ? 'group' : 'channel'}/${item.id_string}`"
-              >
-                <div class="flex-none h-10 w-10 flex items-center justify-center bg-gray-200">
-                  <img
-                    v-if="item.photo"
-                    class="w-full h-full"
-                    :src="item.photo"
-                    :alt="item.name">
-                  <icon v-else name="thumb"/>
+        <div class="grid md:grid-cols-3 gap-3 text-sm">
+          <nuxt-link
+            v-for="item in response.results" :key="item.id"
+            :to="`/group/${item.id_string}`"
+            class="flex gap-2 p-2 border bg-white"
+          >
+            <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
+              <img
+                v-if="item.photo"
+                :src="item.photo"
+                :alt="item.name">
+              <icon v-else name="thumb"/>
+            </div>
+            <div class="flex-1">
+              <div class="font-semibold text-gray-900 line-1">{{ item.name }}</div>
+              <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
+              <div class="flex gap-3 text-xs mt-1">
+                <div class="flex gap-1">
+                  <span>{{ item.members?.toLocaleString() }}</span>
+                  <span>subscribers</span>
                 </div>
-                <div class="flex-1">
-                  <div class="font-semibold text-gray-900 truncate w-64">{{ item.name }}</div>
-                  <div class="text-gray-500 text-xs">@{{ item.id_string }}</div>
-                </div>
-              </nuxt-link>
-            </td>
-            <td class="p-2 hidden md:table-cell">
-              {{ parsePercent(item.views / item.members) }}
-            </td>
-            <td class="p-2">
-              <div class="font-semibold">{{ item?.members.toLocaleString() }}</div>
-              <div class="text-xs text-green-500">
-                <span>{{ item?.statistics?.members_1h?.toLocaleString() }}</span>
               </div>
-            </td>
-            <td class="p-2 hidden md:table-cell">
-              {{ timeSince(item.created) }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </div>
+          </nuxt-link>
+        </div>
+        <div v-if="response.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+          <div v-for="(item, i) in response.properties" :key="i" class="flex rounded overflow-hidden">
+            <nuxt-link
+              class="p-2 py-1 bg-stone-100"
+              :to="`/channel/${item.taxonomy}/${item.id_string}`"
+            >{{ item.name }}
+            </nuxt-link>
+          </div>
+        </div>
       </div>
       <div v-if="$route.params.type && paginator.num_pages" class="flex justify-center gap-3 text-sm fill-gray-300">
         <nuxt-link

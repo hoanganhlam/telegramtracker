@@ -9,13 +9,7 @@
           </nuxt-link>
         </div>
         <client-only>
-          <div
-            class="cursor-pointer md:hidden p-2"
-            @click="showSearch = !showSearch"
-          >
-            <icon name="search"/>
-          </div>
-          <div v-if="$route.params.type" class="hidden md:flex items-center gap-3 fill-gray-50 text-gray-50">
+          <div v-if="$route.params.type" class="flex items-center gap-3 fill-gray-50 text-gray-50">
             <icon name="chevron-right"/>
             <nuxt-link class="text-sm capitalize" :to="`/${$route.params.type}`">{{$route.params.type}}</nuxt-link>
           </div>
@@ -52,6 +46,12 @@
                 <icon name="search"/>
               </div>
             </div>
+          </div>
+          <div
+            class="cursor-pointer md:hidden p-2"
+            @click="showSearch = !showSearch"
+          >
+            <icon class="fill-white" name="search"/>
           </div>
         </client-only>
       </div>
