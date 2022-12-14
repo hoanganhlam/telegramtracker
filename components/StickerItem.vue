@@ -31,6 +31,7 @@
 
 <script>
 import lottie from 'lottie-web';
+
 export default {
   name: "StickerItem",
   props: {
@@ -59,8 +60,10 @@ export default {
   methods: {
     pin() {
       const url = `https://www.pinterest.com/pin/create/button/?url=${window.location.href}&description=${this.title}&media=${this.$config.API_DOMAIN}${this.value.path}`
-      const newWindow=window.open(url, "Pin It",'height=728,width=728,toolbar=0,menubar=0,location=0');
-      if (window.focus) {newWindow.focus()}
+      const newWindow = window.open(url, "Pin It", 'height=728,width=728,toolbar=0,menubar=0,location=0');
+      if (window.focus) {
+        newWindow.focus()
+      }
       return false;
     },
     onMouseOver(isEnter) {
@@ -83,13 +86,13 @@ export default {
       this.loading = true
       const res = await this.$axios.$get(this.path)
       this.anime = await lottie.loadAnimation({
-          container: this.$refs.player,
-          renderer: 'svg',
-          loop: true,
-          autoplay: false,
-          animationData: res,
-          rendererSettings: {}
-        })
+        container: this.$refs.player,
+        renderer: 'svg',
+        loop: true,
+        autoplay: false,
+        animationData: JSON.parse(JSON.stringify(res)),
+        rendererSettings: {}
+      })
       this.loading = false
     }
   },
