@@ -91,7 +91,7 @@ export default {
         inters[2] = this.$axios.$get('/main/stickers/', {
           params: {
             ...q,
-            page_size: !this.$route.params.type ? 3 : 12,
+            page_size: !this.$route.params.type ? 3 : 9,
           },
           headers: {
             'X-Cache': 'client'
