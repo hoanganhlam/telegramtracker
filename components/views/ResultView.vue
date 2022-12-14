@@ -84,7 +84,7 @@
             v-for="item in response3.results" :key="item.id"
             class="border bg-white"
           >
-            <div class="p-2 grid grid-cols-6 md:grid-cols-3 gap-2">
+            <div class="p-2 grid grid-cols-3 gap-2">
               <sticker-item
                 v-for="s in item.sticker_items.slice(0, 12)"
                 :key="s.tg_id"
