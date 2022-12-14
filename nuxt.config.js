@@ -44,6 +44,9 @@ export default {
     'vue-social-sharing/nuxt',
     ['cookie-universal-nuxt', {alias: 'ck'}],
     '@nuxtjs/gtm',
+    ['nuxt-lazy-load', {
+      defaultImage: '/thumb.png'
+    }]
   ],
 
   gtm: {

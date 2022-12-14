@@ -2,27 +2,22 @@
   <div
     v-if="value"
     class="pt-full relative group"
+    @mouseenter="onMouseOver(true)"
+    @mouseleave="onMouseOver(false)"
   >
     <div class="absolute inset-0 flex items-center justify-center bg-gray-200">
-      <client-only v-if="is_animated">
-        <lottie-player
-          ref="player"
-          loop
-          :src="path"
-          speed="1"
-          @mouseenter="onMouseOver(true)"
-          @mouseleave="onMouseOver(false)"
-        />
-      </client-only>
       <video
-        ref="player"
-        v-else-if="is_video" class="w-full h-full object-contain"
-        @mouseenter="onMouseOver(true)"
-        @mouseleave="onMouseOver(false)"
+        v-if="is_video"
+        v-lazy-load ref="player" class="w-full h-full object-contain"
       >
-        <source :src="path">
+        <source :data-src="path">
       </video>
-      <img v-else :src="path" :alt="title + ' #' + value.tg_id" class="w-full h-full object-contain">
+      <img
+        v-else-if="!is_animated" :data-src="path" :alt="title + ' #' + value.tg_id"
+        v-lazy-load
+        class="w-full h-full object-contain"
+      >
+      <div v-else-if="is_animated" ref="player"></div>
     </div>
     <div
       v-if="!is_animated && !is_video"
@@ -35,6 +30,7 @@
 </template>
 
 <script>
+import lottie from 'lottie-web';
 export default {
   name: "StickerItem",
   props: {
@@ -47,7 +43,13 @@ export default {
       default: false,
       type: Boolean
     },
-    value: {}
+    value: {},
+  },
+  data() {
+    return {
+      anime: null,
+      loading: false
+    }
   },
   computed: {
     path() {
@@ -62,12 +64,49 @@ export default {
       return false;
     },
     onMouseOver(isEnter) {
-      if (isEnter) {
-        this.$refs.player.play()
-      } else {
-        this.$refs.player.pause()
+      if (this.is_video) {
+        if (isEnter) {
+          this.$refs.player?.play()
+        } else {
+          this.$refs.player?.pause()
+        }
+      } else if (this.anime) {
+        if (isEnter) {
+          this.anime.play()
+        } else {
+          this.anime.pause()
+        }
+      }
+    },
+    init() {
+      if (!this.$refs.player) return;
+      this.loading = true
+      this.$axios.$get(this.path).then(res => {
+        this.anime = lottie.loadAnimation({
+            container: this.$refs.player,
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            animationData: res,
+            rendererSettings: {}
+          }
+        )
+      }).finally(() => {
+        this.loading = false
+      })
+    }
+  },
+  mounted() {
+    const elm = this.$el
+    const handle = async () => {
+      if (this.anime || this.loading) return;
+      const isVisible = window.checkVisible(elm);
+      if (isVisible) {
+        this.init()
       }
     }
+    handle()
+    window.addEventListener('scroll', handle)
   }
 }
 </script>
