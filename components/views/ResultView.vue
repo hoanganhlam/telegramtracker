@@ -65,7 +65,7 @@
             </div>
           </nuxt-link>
         </div>
-        <div v-if="response2.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+        <div v-if="response2.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
           <div v-for="(item, i) in response2.properties" :key="i" class="flex rounded overflow-hidden">
             <nuxt-link
               class="p-2 py-1 bg-stone-100"
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-        <div v-if="response3.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+        <div v-if="response3.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
           <div v-for="(item, i) in response3.properties" :key="i" class="flex rounded overflow-hidden">
             <nuxt-link
               class="p-2 py-1 bg-stone-100"
@@ -151,7 +151,7 @@
             </div>
           </nuxt-link>
         </div>
-        <div v-if="response.properties" class="flex items-center gap-2 text-xs font-semibold flex-wrap">
+        <div v-if="response.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
           <div v-for="(item, i) in response.properties" :key="i" class="flex rounded overflow-hidden">
             <nuxt-link
               class="p-2 py-1 bg-stone-100"

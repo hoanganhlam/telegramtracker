@@ -1,5 +1,5 @@
 <template>
-  <div v-if="value" class="max-w-4xl mx-auto py-4 space-y-4 md:py-6 md:space-y-6">
+  <div v-if="value" class="max-w-4xl mx-auto py-4 space-y-4">
     <div class="flex gap-4 items-center">
       <div class="h-16 w-16 flex items-center justify-center bg-gray-200">
         <img
@@ -85,11 +85,12 @@
           <icon name="download"/>
         </a>
       </div>
-      <div class="grid grid-cols-4 gap-3">
+      <p class="italic text-xs">Hover to play animation</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
         <sticker-item
           v-for="s in value.sticker_items"
           :key="s.tg_id"
-          :title="value.title"
+          :title="value.name"
           :is_animated="value.is_animated"
           :is_video="value.is_video"
           :value="s"

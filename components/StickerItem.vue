@@ -17,7 +17,14 @@
         v-lazy-load
         class="w-full h-full object-contain"
       >
-      <div v-else-if="is_animated" ref="player"></div>
+      <div v-else-if="is_animated" ref="player">
+        <img
+          v-if="!loaded"
+          v-lazy-load
+          :data-src="thumbPath" :alt="title + ' #' + value.tg_id"
+          class="w-full h-full object-contain"
+        >
+      </div>
     </div>
     <div
       v-if="!is_animated && !is_video"
@@ -49,12 +56,20 @@ export default {
   data() {
     return {
       anime: null,
-      loading: false
+      loading: false,
+      loaded: false
     }
   },
   computed: {
     path() {
       return `${this.$config.API_DOMAIN}${this.value.path}`
+    },
+    thumbPath() {
+      let path = this.value.path
+      if (this.is_animated) {
+        path = path.replace("/files/media/", "/files/media/thumb/").replace(".json", ".png")
+      }
+      return `${this.$config.API_DOMAIN}${path}`
     }
   },
   methods: {
@@ -66,7 +81,11 @@ export default {
       }
       return false;
     },
-    onMouseOver(isEnter) {
+    async onMouseOver(isEnter) {
+      if (this.loading) return;
+      if (this.is_animated && !this.anime) {
+        await this.init()
+      }
       if (this.is_video) {
         if (isEnter) {
           this.$refs.player?.play()
@@ -93,21 +112,10 @@ export default {
         animationData: JSON.parse(JSON.stringify(res)),
         rendererSettings: {}
       })
+      this.loaded = true
       this.loading = false
     }
   },
-  async mounted() {
-    const elm = this.$el
-    const handle = async () => {
-      if (this.anime || this.loading) return;
-      const isVisible = window.checkVisible(elm);
-      if (isVisible) {
-        await this.init()
-      }
-    }
-    await handle()
-    window.addEventListener('scroll', handle)
-  }
 }
 </script>
 
