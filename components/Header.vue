@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 border-b py-2 bg-black text-white -mx-4 px-4 z-10 font-bold">
+  <header class="sticky top-0 py-2 bg-black text-white -mx-4 px-4 z-10 font-semibold">
     <div class="mx-auto max-w-4xl flex gap-4 items-center justify-between text-xs">
       <div class="flex-1 flex items-center gap-6">
         <div>
@@ -35,11 +35,11 @@
             }"
           >
             <div class="flex text-sm text-black">
-              <div class="p-2 md:hidden cursor-pointer border border-r-0" @click="showSearch = false">
+              <div class="p-2 md:hidden cursor-pointer" @click="showSearch = false">
                 <icon name="close"/>
               </div>
               <input
-                v-model="name" class="border rounded-none md:border-r-0 outline-none p-1.5 px-4 w-full"
+                v-model="name" class="rounded-none outline-none p-1.5 px-4 w-full"
                 type="text" placeholder="Channel or group"
               >
               <div class="button bg-green-600 fill-white" @click="search()">
@@ -56,9 +56,6 @@
         </client-only>
       </div>
       <div class="flex gap-4 items-center justify-end text-xs uppercase">
-        <div class="flex gap-4 text-gray-50">
-          <nuxt-link to="/">Book</nuxt-link>
-        </div>
         <client-only v-if="false">
           <div
             v-if="!loggedIn"

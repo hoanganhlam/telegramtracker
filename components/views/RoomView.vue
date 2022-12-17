@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isChat" class="border bg-white p-3 flex-1 space-y-4">
+    <div v-if="isChat" class="bg-white flex-1 space-y-4">
       <div v-if="value.statistics"
            class="flex flex-wrap gap-4 md:gap-10 text-gray-500 leading-none text-sm font-semibold">
         <div class="space-y-1" v-for="item in metrics" :key="item.id">

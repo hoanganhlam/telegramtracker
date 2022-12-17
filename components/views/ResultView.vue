@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-4xl mx-auto py-4">
-    <div class="space-y-4">
+  <div class="max-w-4xl mx-auto py-4 md:py-8">
+    <div class="space-y-4 md:space-y-6">
       <div
         v-if="false && !$route.params.id_string"
         class="md:flex gap-3 space-y-4 md:space-y-0"
@@ -31,9 +31,20 @@
         <h1 class="text-3xl font-bold">{{ $store.state.config.meta.title }}</h1>
         <p class="text-gray-500">{{ $store.state.config.meta.desc }}</p>
       </div>
-      <div v-if="response2.results.length" class="space-y-2">
-        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/group">Best Telegram Groups</nuxt-link>
+      <div v-if="response2.results.length" class="space-y-4">
+        <div class="space-y-2">
+          <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+            <nuxt-link to="/group">Best Telegram Groups</nuxt-link>
+          </div>
+          <div v-if="response2.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
+            <div v-for="(item, i) in response2.properties" :key="i" class="flex rounded overflow-hidden">
+              <nuxt-link
+                class="p-2 py-1 bg-stone-100"
+                :to="`/group/${item.taxonomy}/${item.id_string}`"
+              >{{ item.name }}
+              </nuxt-link>
+            </div>
+          </div>
         </div>
         <div class="grid md:grid-cols-3 gap-3 text-sm">
           <nuxt-link
@@ -65,19 +76,21 @@
             </div>
           </nuxt-link>
         </div>
-        <div v-if="response2.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
-          <div v-for="(item, i) in response2.properties" :key="i" class="flex rounded overflow-hidden">
-            <nuxt-link
-              class="p-2 py-1 bg-stone-100"
-              :to="`/group/${item.taxonomy}/${item.id_string}`"
-            >{{ item.name }}
-            </nuxt-link>
-          </div>
-        </div>
       </div>
-      <div v-if="response3.results.length" class="space-y-2">
-        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
+      <div v-if="response3.results.length" class="space-y-4">
+        <div class="space-y-2">
+          <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+            <nuxt-link to="/sticker">Best Telegram Sticker</nuxt-link>
+          </div>
+          <div v-if="response3.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
+            <div v-for="(item, i) in response3.properties" :key="i" class="flex rounded overflow-hidden">
+              <nuxt-link
+                class="p-2 py-1 bg-stone-100"
+                :to="`/sticker/${item.taxonomy}/${item.id_string}`"
+              >{{ item.name }}
+              </nuxt-link>
+            </div>
+          </div>
         </div>
         <div class="grid md:grid-cols-3 gap-3 text-sm">
           <div
@@ -112,19 +125,21 @@
             </div>
           </div>
         </div>
-        <div v-if="response3.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
-          <div v-for="(item, i) in response3.properties" :key="i" class="flex rounded overflow-hidden">
-            <nuxt-link
-              class="p-2 py-1 bg-stone-100"
-              :to="`/sticker/${item.taxonomy}/${item.id_string}`"
-            >{{ item.name }}
-            </nuxt-link>
-          </div>
-        </div>
       </div>
-      <div v-if="response.results.length" class="space-y-2">
-        <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
-          <nuxt-link to="/channel">Best Telegram Channels</nuxt-link>
+      <div v-if="response.results.length" class="space-y-4">
+        <div class="space-y-2">
+          <div v-if="$route.path === '/'" class="uppercase font-bold text-xs">
+            <nuxt-link to="/channel">Best Telegram Channels</nuxt-link>
+          </div>
+          <div v-if="response.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
+            <div v-for="(item, i) in response.properties" :key="i" class="flex rounded overflow-hidden">
+              <nuxt-link
+                class="p-2 py-1 bg-stone-100"
+                :to="`/channel/${item.taxonomy}/${item.id_string}`"
+              >{{ item.name }}
+              </nuxt-link>
+            </div>
+          </div>
         </div>
         <div class="grid md:grid-cols-3 gap-3 text-sm">
           <nuxt-link
@@ -150,15 +165,6 @@
               </div>
             </div>
           </nuxt-link>
-        </div>
-        <div v-if="response.properties" class="text-gray-600 flex items-center gap-2 text-xs font-semibold flex-wrap">
-          <div v-for="(item, i) in response.properties" :key="i" class="flex rounded overflow-hidden">
-            <nuxt-link
-              class="p-2 py-1 bg-stone-100"
-              :to="`/channel/${item.taxonomy}/${item.id_string}`"
-            >{{ item.name }}
-            </nuxt-link>
-          </div>
         </div>
       </div>
       <div v-if="$route.params.type && paginator.num_pages" class="flex justify-center gap-3 text-sm fill-gray-300">
