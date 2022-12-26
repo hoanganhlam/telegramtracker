@@ -50,7 +50,7 @@ export default {
       } else {
         this.$store.commit(
           'config/SET_ROOM',
-          await this.$axios.$get(`/main/stickers/${this.$route.params.taxonomy}/`)
+          await this.$axios.$get(`/main/stickers/${this.$route.params.taxonomy.toLowerCase()}/`)
         )
       }
     } else {
