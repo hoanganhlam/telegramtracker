@@ -40,7 +40,7 @@ export default {
           }
         }
         const res = await Promise.all([
-          this.$axios.$get(`/main/rooms/${this.$route.params.taxonomy}/`),
+          this.$axios.$get(`/main/rooms/${this.$route.params.taxonomy.toLowerCase()}/`),
           this.$axios.$get(`/main/snapshots/`, q),
           this.$axios.$get(`/main/posts/`, q)
         ])
